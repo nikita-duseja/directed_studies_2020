@@ -1018,7 +1018,7 @@ def speaker_diarization(filename, n_speakers, mid_window=2.0, mid_step=0.2,
                                                       seg_labs, mid_step)
 
     if plot_res:
-        fig = plt.figure(figsize=(10, 10))    
+        fig = plt.figure(figsize=(10, 4))    
         if n_speakers > 0:
             ax1 = fig.add_subplot(111)
         else:
