@@ -26,41 +26,11 @@ import argparse
 import io
 import csv
 
-def transcribe_file_with_word_time_offsets(speech_file):
-    """Transcribe the given audio file synchronously and output the word time
-    offsets."""
-    from google.cloud import speech
-    from google.cloud.speech import enums
-    from google.cloud.speech import types
-    client = speech.SpeechClient()
 
-    with io.open(speech_file, 'rb') as audio_file:
-        content = audio_file.read()
-
-    audio = types.RecognitionAudio(content=content)
-    config = types.RecognitionConfig(
-        encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=16000,
-        language_code='en-US',
-        enable_word_time_offsets=True)
-
-    response = client.recognize(config, audio)
-
-    for result in response.results:
-        alternative = result.alternatives[0]
-        print(u'Transcript: {}'.format(alternative.transcript))
-
-        for word_info in alternative.words:
-            word = word_info.word
-            start_time = word_info.start_time
-            end_time = word_info.end_time
-            print('Word: {}, start_time: {}, end_time: {}'.format(
-                word,
-                start_time.seconds + start_time.nanos * 1e-9,
-                end_time.seconds + end_time.nanos * 1e-9))
+def my_callback(future):
+    result = future.result()
 
 
-# [START speech_transcribe_async_word_time_offsets_gcs]
 def transcribe_gcs_with_word_time_offsets(gcs_uri):
     """Transcribe the given audio file asynchronously and output the word time
     offsets."""
@@ -77,7 +47,6 @@ def transcribe_gcs_with_word_time_offsets(gcs_uri):
         enable_word_time_offsets=True, model='video')
 
     operation = client.long_running_recognize(config, audio)
-    print('Waiting for operation to complete...')
     result = operation.result(timeout=200)
     result_time_offsets = []
     for result in result.results:
