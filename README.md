@@ -24,5 +24,5 @@ eg ./run_process.sh diarization/pyAudioAnalysis/data/diarizationExample.wav 4
 
 A snapshot of the running process is
 
-
+![Image description](https://drive.google.com/file/d/1etvzU08RHFc-TBgC4BY6sXEyxNpPYCWm/view?usp=sharing)
 
