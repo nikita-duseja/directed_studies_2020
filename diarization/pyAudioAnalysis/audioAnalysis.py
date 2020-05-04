@@ -1,25 +1,12 @@
 from __future__ import print_function
 import argparse
-import os
-import numpy
-import glob
-import matplotlib.pyplot as plt
-import ShortTermFeatures as sF
-import MidTermFeatures as aF
-import audioTrainTest as aT
 import audioSegmentation as aS
-import audioVisualization as aV
-import audioBasicIO
-import scipy.io.wavfile as wavfile
-import matplotlib.patches
 import analysis_results
 
 def speakerDiarizationWrapper(inputFile, numSpeakers):
     timeStamps, sampling_rate, num_frames = aS.speaker_diarization(inputFile, numSpeakers, lda_dim=0, plot_res=True)
     duration = num_frames/float(sampling_rate)
     analysis_results.preprocess_diarization_results(duration,timeStamps)
-
-
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="A demonstration script "

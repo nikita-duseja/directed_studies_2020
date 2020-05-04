@@ -1,6 +1,5 @@
 import csv
 
-
 def preprocess_diarization_results(duration, speaker_ids):
     duration_per_sample = duration/float(len(speaker_ids))
     speaker_windows_list = []
@@ -18,9 +17,8 @@ def preprocess_diarization_results(duration, speaker_ids):
            curr_speaker_id = id
     speaker_windows_list.append((start_time, end_time, curr_speaker_id))
     print(speaker_windows_list)
-    with open("data/speaker_windows", "w") as the_file:
+    with open("speaker_windows", "w") as the_file:
         csv.register_dialect("custom", delimiter=" ", skipinitialspace=True)
         writer = csv.writer(the_file, dialect="custom")
         for tup in speaker_windows_list:
             writer.writerow(tup)
-

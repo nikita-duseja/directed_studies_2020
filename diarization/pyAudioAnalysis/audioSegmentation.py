@@ -1,20 +1,16 @@
 from __future__ import print_function
 import os
-import csv
-import glob
 import scipy
 import sklearn
 import numpy as np
 import hmmlearn.hmm
 import sklearn.cluster
-import pickle as cpickle
 import matplotlib.pyplot as plt
 from scipy.spatial import distance
 import sklearn.discriminant_analysis
 import audioBasicIO
 import audioTrainTest as at
 import MidTermFeatures as mtf
-import ShortTermFeatures as stf
 
 """ General utility functions """
 

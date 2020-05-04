@@ -1,8 +1,7 @@
-COUNTER=0
-for file_name in `ls -rt data/wav_out/out_concat_*.wav`
-do
-	out_file_name="out_concat_${COUNTER}.wav"
-	COUNTER=$[$COUNTER +1]
-	echo "$out_file_name"
-	python3 audioAnalysis.py speakerDiarization -i data/wav_out/${out_file_name} --num 0 >> log
-done
+## upload file to google storage
+file_path=$1
+gsutil cp $file_path gs://tamu-nduseja-ds/
+file_name=`basename $file_path`
+gs_storage_path="gs://tamu-nduseja-ds/$file_name"
+python transcription/transcribe_word_time_offsets.py transcription/data/commercial_mono.wav &
+python3 diarization/pyAudioAnalysis/audioAnalysis.py speakerDiarization -i $file_path --num 2
