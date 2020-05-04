@@ -42,7 +42,7 @@ def transcribe_gcs_with_word_time_offsets(gcs_uri):
     audio = types.RecognitionAudio(uri=gcs_uri)
     config = types.RecognitionConfig(
         encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=8000,
+        sample_rate_hertz=16000,
         language_code='en-US',
         enable_word_time_offsets=True, model='video')
 
@@ -51,8 +51,8 @@ def transcribe_gcs_with_word_time_offsets(gcs_uri):
     result_time_offsets = []
     for result in result.results:
         alternative = result.alternatives[0]
-        print(u'Transcript: {}'.format(alternative.transcript))
-        print('Confidence: {}'.format(alternative.confidence))
+        # print(u'Transcript: {}'.format(alternative.transcript))
+        # print('Confidence: {}'.format(alternative.confidence))
         for word_info in alternative.words:
             word = word_info.word
             start_time = word_info.start_time
